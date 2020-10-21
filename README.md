@@ -1,11 +1,11 @@
-<<<<<<< HEAD
+
 # Lab 1 - Allocator
 =======
 
 
 ## info
 
-<<<<<<< HEAD
+
 An allocator is a specialized class that implements and encapsulates unimportant details of the allocation and release of computer memory resources.
 
 The description of the implementation of the mechanics of a block allocator is that it divides some large piece of memory into smaller sections of the same size.
