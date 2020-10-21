@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <list>
 using namespace std;
@@ -6,10 +8,10 @@ class AllocatorBlock
 {
 	struct AllocHeader
 	{
-		uint8_t* pointer;
-		size_t size;
-		AllocHeader* next;
-		AllocHeader* prev;
+		uint8_t *pointer;
+		size_t size; 
+		AllocHeader *next; 
+		AllocHeader *prev; 
 	};
 
 public:
@@ -19,7 +21,7 @@ public:
 	void mem_free(void* addr);
 	void mem_dump();
 
-private:
+private:	
 	AllocHeader* FirstBlock;
 	AllocHeader* LastBlock;
 	list<AllocHeader*>* Free;
@@ -31,4 +33,3 @@ private:
 	AllocHeader* UnionBlocks(AllocHeader* left, AllocHeader* right);
 	bool CheckBlock(const std::list<AllocHeader*>* list, AllocHeader* AllocHeader);
 };
-#pragma once

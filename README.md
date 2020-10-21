@@ -1,19 +1,92 @@
-# alloc
-Описание реализации механики блочного аллокатора заключается в том, что он разделяет некоторый большой участок памяти на более мелкие участки одинакового размера.
-Блок содержит поле с заголовком и кусок памяти, который распределитель возвращает пользователю. Заголовок имеет длину 3 байта и содержит информацию о длине блока и о том, занят ли он. 
-Когда запрашивается выделение, алокатор просто возвращает один из свободных участков памяти фиксированного размера, а когда запрашивается освобождение то, он просто сохраняет этот участок памяти для дальнейшего использования. 
+<<<<<<< HEAD
+# Lab 1 - Allocator
+=======
 
 
-Описание алгоритма ПРОТОТИП: void * mem_alloc (size_t size)
+## info
 
-Когда пользователь вызывает функцию mem_alloc, программа просматривает память, выделенную при инициализации распределителя, в поисках нераспределенного блока памяти подходящей длины. Если такой блок не найден, он возвращает указатель на NULL.
+<<<<<<< HEAD
+An allocator is a specialized class that implements and encapsulates unimportant details of the allocation and release of computer memory resources.
 
-Описание алгоритма ПРОТОТИП: void * mem_realloc (void * addr, size_t size)
+The description of the implementation of the mechanics of a block allocator is that it divides some large piece of memory into smaller sections of the same size.
+The block contains a header field and a chunk of memory that the allocator returns to the user. The header is 3 bytes long and contains information about the length of the block and whether it is busy.
+When an allocation is requested, the locator simply returns one of the free chunks of memory of a fixed size, and when a free chunk is requested, it simply saves that chunk of memory for later use.
 
-Функция проверяет, есть ли блок памяти подходящего размера, и если он есть, то функция передает данные туда или его часть и преобретает адрес нового блока памяти, если такого блока нет, функция возвращает  NULL и не разрушает старый блок памяти.
+### Algorithm description
 
-Описание алгоритма ПРОТОТИП: void mem_free (void * addr)
+#### Allocate function
+```
+#Description of the PROTOTYPE algorithm: void * mem_alloc (size_t size)
+```
 
-Соответствующий блок addr удаляется из списка, добавляется в список свободных и соединяется с соседними свободными блоками, если таковые имеются.
+When the user calls the mem_alloc function, the program scans the memory allocated during allocator initialization, looking for an unallocated block of memory of a suitable length. If no such block is found, it returns a NULL pointer.
+### Reallocate function
+```
+#Description of the PROTOTYPE algorithm: void * mem_realloc (void * addr, size_t size)```
 
-ДЕМОНСТРАЦИЯ Все выходные данные состояния памяти выполняются с помощью функции mem_dump, которая, по сути, проходит через «нашу» кучу и выводит состояния всех существующих блоков.
+The function checks if there is a block of memory of a suitable size, and if there is one, then the function transfers data there or a part of it and acquires the address of a new block of memory, if there is no such block, the function returns NULL and does not destroy the old block of memory.
+
+
+### Free memory function
+```
+#Description of the PROTOTYPE algorithm: void mem_free (void * addr)```
+
+The corresponding addr block is removed from the list, added to the free list, and connected to adjacent free blocks, if any.
+
+## HOW TO USE
+
+To use the algorithm you need to download allocgead.h and laba1os.cpp and then run them with java application
+## DEMONSTRATION
+
+### Creation allocator
+
+##### Code
+```auto allocator = new AllocatorBlock();```
+
+
+### The allocation of *4* bytes of memory
+#### Block can contain only *4* bytes. We must join *1* blocks
+##### Code
+```
+auto mem = allocator->mem_alloc(sizeof(long));
+allocator->mem_dump();```
+
+##### Output
+![allocating 4 bytes](images/4aloc.PNG)
+
+### The allocation of *6* bytes of memory
+#### Block can contain only *6* bytes. We must join *2* blocks
+##### Code
+```
+auto mem2 = allocator->mem_alloc(5);
+allocator->mem_dump();```
+
+##### Output
+![allocating 6 bytes](images/6aloc.PNG)
+
+---
+
+### The reallocation of *23* bytes of memory
+#### The function frees the addr memory block and applies it to it mem_alloc (size), where size is the new specified size in bytes
+##### Code
+```
+auto mem_real = allocator->mem_realloc(mem, 23);
+allocator->mem_dump();
+```
+
+##### Output
+![freeing 23 bytes(same picture as creation of alloc)](images/realoc.PNG)
+---
+### The freeing of *6* bytes of memory
+#### Optimize method split a large block into smaller for reuse
+##### Code
+```
+allocator->mem_free(mem2);
+allocator->mem_dump();
+```
+
+##### Output
+![freeing 6 bytes(same picture as creation of alloc)](images/Memfree.PNG)
+---
+
+###It just work =D###

@@ -1,6 +1,6 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include "Windows.h"
-#include "allocgead.h"
+#include "Headeraloc.h"
 
 using namespace std;
 
@@ -19,16 +19,16 @@ int main() {
 
 AllocatorBlock::AllocatorBlock()
 {
-	Used = new list<AllocHeader*>();
-	Free = new list<AllocHeader*>();
-	FirstBlock = nullptr;
-	LastBlock = nullptr;
+	Used = new list<AllocHeader*>(); 
+	Free = new list<AllocHeader*>(); 
+	FirstBlock = nullptr; 
+	LastBlock = nullptr; 
 }
 
 void* AllocatorBlock::mem_alloc(size_t size)
 {
 	size = StandSize(size);
-	AllocHeader* AllocHeader = SerchBlock(size);
+	AllocHeader *AllocHeader = SerchBlock(size);
 
 	if (AllocHeader == nullptr)
 	{
@@ -39,9 +39,9 @@ void* AllocatorBlock::mem_alloc(size_t size)
 			return nullptr;
 		}
 	}
-
+	
 	Used->push_back(AllocHeader);
-	return AllocHeader->pointer;
+	return AllocHeader->pointer; 
 }
 
 size_t AllocatorBlock::StandSize(size_t size)
@@ -92,16 +92,16 @@ AllocatorBlock::AllocHeader* AllocatorBlock::MemoryAllocation(size_t size)
 	return block;
 }
 
-void* AllocatorBlock::mem_realloc(void* addr, size_t size)
+void* AllocatorBlock::mem_realloc(void *addr, size_t size) 
 {
-	mem_free(addr);
-	return mem_alloc(size);
+	mem_free(addr); 
+	return mem_alloc(size); 
 }
 
-void AllocatorBlock::mem_free(void* addr)
+void AllocatorBlock::mem_free(void *addr) 
 {
 	const auto pointer = reinterpret_cast<uint8_t*>(addr);
-	for (auto AllocHeader : *Used)
+	for (auto AllocHeader : *Used) 
 	{
 		if (AllocHeader->pointer != pointer)
 			continue;
@@ -112,20 +112,20 @@ void AllocatorBlock::mem_free(void* addr)
 	}
 }
 
-void AllocatorBlock::BlockAddition(AllocHeader* AllocHeader)
+void AllocatorBlock::BlockAddition(AllocHeader *AllocHeader) 
 {
-	if (AllocHeader->prev != nullptr && CheckBlock(Free, AllocHeader->prev))
+	if (AllocHeader->prev != nullptr  && CheckBlock(Free, AllocHeader->prev))
 	{
 		AllocHeader = UnionBlocks(AllocHeader->prev, AllocHeader);
 	}
-
+	
 	if (AllocHeader->next != nullptr && CheckBlock(Free, AllocHeader->next))
 	{
 		AllocHeader = UnionBlocks(AllocHeader, AllocHeader->next);
 	}
 }
 
-AllocatorBlock::AllocHeader* AllocatorBlock::UnionBlocks(AllocHeader* left, AllocHeader* right)
+AllocatorBlock::AllocHeader* AllocatorBlock::UnionBlocks(AllocHeader* left, AllocHeader* right) 
 {
 	left->size += right->size;
 	left->next = right->next;
@@ -134,21 +134,21 @@ AllocatorBlock::AllocHeader* AllocatorBlock::UnionBlocks(AllocHeader* left, Allo
 
 void AllocatorBlock::mem_dump()
 {
-	auto Ð¡urrentB = FirstBlock;
+	auto ÑurrentB = FirstBlock;
 	cout << endl << "--- Condition ---" << endl;
 	while (true) {
 
-		cout << "Memory allocated: " << Ð¡urrentB->size << "\n";
+		cout << "Memory allocated: " << ÑurrentB->size << "\n";
 		cout << "State of the current block: ";
-		if (CheckBlock(Free, Ð¡urrentB))
+		if (CheckBlock(Free, ÑurrentB))
 			cout << "Free" << endl;
-		else if (CheckBlock(Used, Ð¡urrentB))
+		else if (CheckBlock(Used, ÑurrentB))
 			cout << "Used" << endl;
 
-		if (Ð¡urrentB->next == nullptr)
+		if (ÑurrentB->next == nullptr)
 			break;
 
-		Ð¡urrentB = Ð¡urrentB->next;
+		ÑurrentB = ÑurrentB->next;
 	}
 }
 bool AllocatorBlock::CheckBlock(const std::list<AllocHeader*>* list, AllocHeader* AllocHeader)
