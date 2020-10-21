@@ -49,7 +49,8 @@ To use the algorithm you need to download allocgead.h and laba1os.cpp and then r
 ##### Code
 ```
 auto mem = allocator->mem_alloc(sizeof(long));
-allocator->mem_dump();```
+allocator->mem_dump();
+```
 
 ##### Output
 ![allocating 4 bytes](images/4aloc.PNG)
@@ -57,6 +58,7 @@ allocator->mem_dump();```
 ### The allocation of *6* bytes of memory
 #### Block can contain only *6* bytes. We must join *2* blocks
 ##### Code
+
 ```
 auto mem2 = allocator->mem_alloc(5);
 allocator->mem_dump();
