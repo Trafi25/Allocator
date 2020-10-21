@@ -59,7 +59,8 @@ allocator->mem_dump();```
 ##### Code
 ```
 auto mem2 = allocator->mem_alloc(5);
-allocator->mem_dump();```
+allocator->mem_dump();
+```
 
 ##### Output
 ![allocating 6 bytes](images/6aloc.PNG)
