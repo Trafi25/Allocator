@@ -1,10 +1,6 @@
-
 # Lab 1 - Allocator
-=======
-
 
 ## info
-
 
 An allocator is a specialized class that implements and encapsulates unimportant details of the allocation and release of computer memory resources.
 
@@ -15,17 +11,21 @@ When an allocation is requested, the locator simply returns one of the free chun
 ### Algorithm description
 
 #### Allocate function
-```#Description of the PROTOTYPE algorithm: void * mem_alloc (size_t size)```
+```
+#Description of the PROTOTYPE algorithm: void * mem_alloc (size_t size)
+```
 
 When the user calls the mem_alloc function, the program scans the memory allocated during allocator initialization, looking for an unallocated block of memory of a suitable length. If no such block is found, it returns a NULL pointer.
 ### Reallocate function
-```#Description of the PROTOTYPE algorithm: void * mem_realloc (void * addr, size_t size)```
+```
+#Description of the PROTOTYPE algorithm: void * mem_realloc (void * addr, size_t size)```
 
 The function checks if there is a block of memory of a suitable size, and if there is one, then the function transfers data there or a part of it and acquires the address of a new block of memory, if there is no such block, the function returns NULL and does not destroy the old block of memory.
 
 
 ### Free memory function
-```#Description of the PROTOTYPE algorithm: void mem_free (void * addr)```
+```
+#Description of the PROTOTYPE algorithm: void mem_free (void * addr)```
 
 The corresponding addr block is removed from the list, added to the free list, and connected to adjacent free blocks, if any.
 
@@ -45,8 +45,7 @@ To use the algorithm you need to download allocgead.h and laba1os.cpp and then r
 ##### Code
 ```
 auto mem = allocator->mem_alloc(sizeof(long));
-allocator->mem_dump();
-```
+allocator->mem_dump();```
 
 ##### Output
 ![allocating 4 bytes](images/4aloc.PNG)
@@ -54,11 +53,9 @@ allocator->mem_dump();
 ### The allocation of *6* bytes of memory
 #### Block can contain only *6* bytes. We must join *2* blocks
 ##### Code
-
 ```
 auto mem2 = allocator->mem_alloc(5);
-allocator->mem_dump();
-```
+allocator->mem_dump();```
 
 ##### Output
 ![allocating 6 bytes](images/6aloc.PNG)
