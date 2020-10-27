@@ -16,17 +16,19 @@ When an allocation is requested, the locator simply returns one of the free chun
 ```
 
 When the user calls the mem_alloc function, the program scans the memory allocated during allocator initialization, looking for an unallocated block of memory of a suitable length. If no such block is found, it returns a NULL pointer.
-```
+
 ### Reallocate function
 ```
-#Description of the PROTOTYPE algorithm: void * mem_realloc (void * addr, size_t size)```
+#Description of the PROTOTYPE algorithm: void * mem_realloc (void * addr, size_t size)
+```
 
 The function checks if there is a block of memory of a suitable size, and if there is one, then the function transfers data there or a part of it and acquires the address of a new block of memory, if there is no such block, the function returns NULL and does not destroy the old block of memory.
 
 
 ### Free memory function
 ```
-#Description of the PROTOTYPE algorithm: void mem_free (void * addr)```
+#Description of the PROTOTYPE algorithm: void mem_free (void * addr)
+```
 
 The corresponding addr block is removed from the list, added to the free list, and connected to adjacent free blocks, if any.
 
