@@ -16,6 +16,7 @@ When an allocation is requested, the locator simply returns one of the free chun
 ```
 
 When the user calls the mem_alloc function, the program scans the memory allocated during allocator initialization, looking for an unallocated block of memory of a suitable length. If no such block is found, it returns a NULL pointer.
+```
 ### Reallocate function
 ```
 #Description of the PROTOTYPE algorithm: void * mem_realloc (void * addr, size_t size)```
