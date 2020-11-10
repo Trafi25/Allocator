@@ -92,10 +92,18 @@ AllocatorBlock::AllocHeader* AllocatorBlock::MemoryAllocation(size_t size)
 	return block;
 }
 
-void* AllocatorBlock::mem_realloc(void *addr, size_t size) 
+void* AllocatorBlock::mem_realloc(void* addr, size_t size)
 {
-	mem_free(addr); 
-	return mem_alloc(size); 
+	size_t NewSize = ((AllocHeader*)addr)->size;
+	mem_free(addr);
+	void* page = mem_alloc(size);
+
+
+	memcpy(page, addr, min(size, NewSize));
+
+
+	return page;
+
 }
 
 void AllocatorBlock::mem_free(void *addr) 
